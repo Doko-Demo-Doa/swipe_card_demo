@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:swiper_demo/common/colors.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 
-class SwipeCard extends StatelessWidget {
+class SwipeCard extends StatefulWidget {
+  @override
+  _SwipeCardState createState() {
+    return _SwipeCardState();
+  }
+}
+
+class _SwipeCardState extends State<SwipeCard> {
   @override
   Widget build(BuildContext context) {
-    final cardSize = 300.0;
-    final imageSize = 120.0;
+    final cardSize = 320.0;
+    final imageSize = 138.0;
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
       width: cardSize,
       height: cardSize,
       decoration: BoxDecoration(
