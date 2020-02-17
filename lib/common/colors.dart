@@ -22,6 +22,7 @@ class CommonColors {
   static var DARK_BLUE_GREY = HexColor('#18364E');
   static var DUSTY_ORANGE = HexColor('#F18623');
   static var LIGHT_NAVY_BLUE = HexColor('#2F6181');
+  static var LIGHT_BLUE = HexColor('#6DCFF6');
   static var METALLIC_BLUE = HexColor('#4F708B');
   static var GUNMETAL = HexColor('#505A66');
   static var DIRTY_GREEN = HexColor('#5E7628');
@@ -29,4 +30,7 @@ class CommonColors {
   static var LIGHT_GREY = HexColor('#E0E0E0');
   static var GREY = HexColor('#8B8B8B');
   static var PEA_GREEN = HexColor('#94AA0E');
+  static var LIGHT_OLIVE_GREEN = HexColor('#8EB654');
+  static var SUNFLOWER = HexColor('#FFC90E');
+  static var CORNFLOWER = HexColor('#666EE6');
 }

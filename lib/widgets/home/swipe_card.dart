@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swiper_demo/common/colors.dart';
+import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 
 class SwipeCard extends StatelessWidget {
   @override
@@ -36,11 +37,23 @@ class SwipeCard extends StatelessWidget {
                         Text('My address is',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              height: 3,
-                                fontSize: 18, color: CommonColors.GREY)),
+                                height: 2,
+                                fontSize: 18,
+                                color: CommonColors.GREY)),
                         Text('4661 Auburn Ave',
                             style: TextStyle(
-                                fontSize: 24, color: CommonColors.ALMOST_BLACK))
+                                fontSize: 24,
+                                color: CommonColors.ALMOST_BLACK)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            IndicatorIcon(name: 'person'),
+                            IndicatorIcon(name: 'calendar'),
+                            IndicatorIcon(name: 'map'),
+                            IndicatorIcon(name: 'phone'),
+                            IndicatorIcon(name: 'lock')
+                          ],
+                        )
                       ],
                     )))
           ]),
