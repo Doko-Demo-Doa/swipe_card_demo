@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:swiper_demo/api/api_person.dart';
 import 'package:swiper_demo/common/colors.dart';
+import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 
 class SwipeCard extends StatefulWidget {
@@ -10,6 +12,24 @@ class SwipeCard extends StatefulWidget {
 }
 
 class _SwipeCardState extends State<SwipeCard> {
+  int activeIndex = 0;
+  String name = '';
+
+  @override
+  void initState() {
+    super.initState();
+    this.getData();
+  }
+
+  getData() async {
+    Person p = await ApiPerson.getPerson();
+    print(p.address);
+
+    setState(() {
+      name = '${p.firstName} ${p.lastName}';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final cardSize = 320.0;
@@ -48,7 +68,7 @@ class _SwipeCardState extends State<SwipeCard> {
                                 height: 2,
                                 fontSize: 18,
                                 color: CommonColors.GREY)),
-                        Text('4661 Auburn Ave',
+                        Text(name,
                             style: TextStyle(
                                 fontSize: 24,
                                 color: CommonColors.ALMOST_BLACK)),

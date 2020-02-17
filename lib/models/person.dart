@@ -1,3 +1,5 @@
+import 'package:basic_utils/basic_utils.dart';
+
 class Person {
   String gender;
   String title;
@@ -11,8 +13,8 @@ class Person {
   Person.fromJson(Map<String, dynamic> json):
     gender = json['gender'],
     title = json['name']['title'],
-    firstName = json['name']['first'],
-    lastName = json['name']['last'],
+    firstName = StringUtils.capitalize(json['name']['first']),
+    lastName = StringUtils.capitalize(json['name']['last']),
     email = json['email'],
     birthday = json['dob'],
     address = json['location']['street'],
