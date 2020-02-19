@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Person> people = [];
   bool loading = false;
+  int indicatorIndex = 0;
   int activeIndex = 0;
 
   @override
@@ -127,7 +128,12 @@ class _HomeState extends State<Home> {
                 cardBuilder: (BuildContext context, int index) {
                   return SwipeCard(
                       person: people.first,
-                      currentIndex: index,
+                      currentIndex: indicatorIndex,
+                      onSelectIndex: (int btnIndex) {
+                        setState(() {
+                          indicatorIndex = btnIndex;
+                        });
+                      },
                       loading: index > activeIndex || this.loading);
                 },
                 totalNum: 2000,

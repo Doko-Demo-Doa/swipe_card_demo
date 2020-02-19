@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:swiper_demo/common/colors.dart';
 import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
@@ -15,17 +16,38 @@ import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 // }
 
 class SwipeCard extends StatelessWidget {
-  final person;
+  final Person person;
   final currentIndex;
   final loading;
-  SwipeCard({this.person, this.currentIndex, this.loading});
+  final Function(int) onSelectIndex;
+  SwipeCard({this.person, this.currentIndex, this.loading, this.onSelectIndex});
+
+  String getSectionTitle() {
+    if (currentIndex == 0) return 'Hi, My name is';
+    if (currentIndex == 1) return 'My email address is';
+    if (currentIndex == 2) return 'My birthday is';
+    if (currentIndex == 3) return 'My address is';
+    if (currentIndex == 4) return 'My phone number is';
+    if (currentIndex == 5) return 'My password is';
+    return '';
+  }
+
+  String getSectionValue() {
+    if (currentIndex == 0) return '${person.firstName} ${person.lastName}';
+    if (currentIndex == 1) return person.email;
+    if (currentIndex == 2) return person.birthday;
+    if (currentIndex == 3) return person.address;
+    if (currentIndex == 4) return person.phone;
+    if (currentIndex == 5) return person.password;
+  }
 
   @override
   Widget build(BuildContext context) {
     final cardSize = 320.0;
     final imageSize = 138.0;
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(seconds: 1),
       width: cardSize,
       height: cardSize,
       decoration: BoxDecoration(
@@ -58,25 +80,56 @@ class SwipeCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text('My address is ',
+                              Text(getSectionTitle(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       height: 2,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       color: CommonColors.GREY)),
                               Text(
-                                  '${person.firstName} ${person.lastName}', // '${person.firstName} ${person.lastName}'
-                                  style: TextStyle(
-                                      fontSize: 24,
+                                  getSectionValue(), // '${person.firstName} ${person.lastName}'
+                                  style: GoogleFonts.lato(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
                                       color: CommonColors.ALMOST_BLACK)),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  IndicatorIcon(name: 'person'),
-                                  IndicatorIcon(name: 'calendar'),
-                                  IndicatorIcon(name: 'map'),
-                                  IndicatorIcon(name: 'phone'),
-                                  IndicatorIcon(name: 'lock')
+                                  IndicatorIcon(
+                                      name: 'person',
+                                      selfIndex: 0,
+                                      selectedIndex: currentIndex,
+                                      onPress: () {
+                                        onSelectIndex(0);
+                                      }),
+                                  IndicatorIcon(
+                                      name: 'calendar',
+                                      selfIndex: 1,
+                                      selectedIndex: currentIndex,
+                                      onPress: () {
+                                        onSelectIndex(1);
+                                      }),
+                                  IndicatorIcon(
+                                      name: 'map',
+                                      selfIndex: 2,
+                                      selectedIndex: currentIndex,
+                                      onPress: () {
+                                        onSelectIndex(2);
+                                      }),
+                                  IndicatorIcon(
+                                      name: 'phone',
+                                      selfIndex: 3,
+                                      selectedIndex: currentIndex,
+                                      onPress: () {
+                                        onSelectIndex(3);
+                                      }),
+                                  IndicatorIcon(
+                                      name: 'lock',
+                                      selfIndex: 4,
+                                      selectedIndex: currentIndex,
+                                      onPress: () {
+                                        onSelectIndex(4);
+                                      })
                                 ],
                               )
                             ],

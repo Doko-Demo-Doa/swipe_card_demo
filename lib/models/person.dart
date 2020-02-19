@@ -6,8 +6,10 @@ class Person {
   String firstName;
   String lastName;
   String email;
+  String phone;
   String birthday;
   String address;
+  String password;
   String avatar;
 
   Person.fromJson(Map<String, dynamic> json)
@@ -16,8 +18,10 @@ class Person {
         firstName = StringUtils.capitalize(json['name']['first']),
         lastName = StringUtils.capitalize(json['name']['last']),
         email = json['email'],
+        phone = json['phone'],
         birthday = json['dob'],
         address = json['location']['street'],
+        password = json['password'],
         avatar = json['picture']['large'];
 
   Person.fromLocalObject(Map<String, dynamic> localObj)
@@ -26,8 +30,10 @@ class Person {
         firstName = localObj['firstName'],
         lastName = localObj['lastName'],
         email = localObj['email'],
+        phone = localObj['phone'],
         birthday = localObj['birthday'],
         address = localObj['address'],
+        password = localObj['password'],
         avatar = localObj['avatar'];
 
   Map<String, dynamic> toJson() => {
@@ -36,8 +42,10 @@ class Person {
     'firstName': firstName,
     'lastName': lastName,
     'email': email,
+    'phone': phone,
     'birthday': birthday,
     'address': address,
+    'password': password,
     'avatar': avatar
   };
 }

@@ -4,9 +4,12 @@ import 'package:swiper_demo/common/colors.dart';
 
 class IndicatorIcon extends StatelessWidget {
   final name;
-  IndicatorIcon({this.name});
+  final int selfIndex;
+  final int selectedIndex;
+  final Function onPress;
+  IndicatorIcon({this.name, this.onPress, this.selfIndex, this.selectedIndex});
 
-  List getCombo () {
+  List getCombo() {
     switch (this.name) {
       case 'person':
         return [FontAwesomeIcons.userAlt, Colors.pink];
@@ -25,18 +28,29 @@ class IndicatorIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40,
-      height: 40,
-      padding: const EdgeInsets.only(top: 12),
-      alignment: Alignment.center,
-      margin: const EdgeInsets.fromLTRB(4, 20, 4, 0),
-      decoration: BoxDecoration(
-        border: Border(top: BorderSide(width: 2, color: getCombo()[1]))
-      ),
-      child: Icon(
-        getCombo()[0],
-        color: getCombo()[1],
+    return GestureDetector(
+      onTap: onPress,
+      child: Stack(
+        children: <Widget>[
+          Container(
+            width: 40,
+            height: 40,
+            padding: const EdgeInsets.only(top: 12),
+            alignment: Alignment.center,
+            margin: const EdgeInsets.fromLTRB(4, 20, 4, 0),
+            decoration: BoxDecoration(
+                border: Border(
+                    top: BorderSide(
+                        width: 2,
+                        color: selfIndex == selectedIndex
+                            ? getCombo()[1]
+                            : Colors.white))),
+            child: Icon(
+              getCombo()[0],
+              color: selfIndex == selectedIndex ? getCombo()[1] : Colors.grey,
+            ),
+          )
+        ],
       ),
     );
   }
