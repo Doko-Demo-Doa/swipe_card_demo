@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:swiper_demo/common/colors.dart';
 import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
@@ -24,22 +25,24 @@ class SwipeCard extends StatelessWidget {
 
   String getSectionTitle() {
     if (currentIndex == 0) return 'Hi, My name is';
-    if (currentIndex == 1) return 'My email address is';
-    if (currentIndex == 2) return 'My birthday is';
-    if (currentIndex == 3) return 'My address is';
-    if (currentIndex == 4) return 'My phone number is';
-    if (currentIndex == 5) return 'My password is';
+    if (currentIndex == 1) return 'My birthday is';
+    if (currentIndex == 2) return 'My address is';
+    if (currentIndex == 3) return 'My phone number is';
+    if (currentIndex == 4) return 'My password is';
     return '';
   }
 
   String getSectionValue() {
     if (currentIndex == 0) return '${person.firstName} ${person.lastName}';
-    if (currentIndex == 1) return person.email;
-    if (currentIndex == 2) return person.birthday;
-    if (currentIndex == 3) return person.address;
-    if (currentIndex == 4) return person.phone;
-    if (currentIndex == 5) return person.password;
+    if (currentIndex == 1) return dateOfBirth;
+    if (currentIndex == 2) return person.address;
+    if (currentIndex == 3) return person.phone;
+    if (currentIndex == 4) return person.password;
+    return '';
   }
+
+  String get dateOfBirth => DateFormat('dd/MM/yyyy')
+      .format(DateTime.fromMillisecondsSinceEpoch(int.parse(person.birthday) * 1000));
 
   @override
   Widget build(BuildContext context) {

@@ -20,7 +20,7 @@ class Person {
         email = json['email'],
         phone = json['phone'],
         birthday = json['dob'],
-        address = json['location']['street'],
+        address = StringUtils.capitalize(json['location']['street']),
         password = json['password'],
         avatar = json['picture']['large'];
 

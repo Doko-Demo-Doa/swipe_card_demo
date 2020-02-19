@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:swiper_demo/common/colors.dart';
+import 'package:swiper_demo/widgets/home/triangle.dart';
 
 class IndicatorIcon extends StatelessWidget {
   final name;
@@ -28,10 +29,25 @@ class IndicatorIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool highlighted = selfIndex == selectedIndex;
     return GestureDetector(
       onTap: onPress,
       child: Stack(
+        alignment: Alignment.topCenter,
         children: <Widget>[
+          Positioned(
+              top: 14,
+              child: Container(
+                width: 6,
+                height: 6,
+                child: CustomPaint(
+                  painter: TrianglePainter(
+                    strokeColor: highlighted ? getCombo()[1] : Colors.white,
+                    strokeWidth: 5,
+                    paintingStyle: PaintingStyle.fill,
+                  ),
+                ),
+              )),
           Container(
             width: 40,
             height: 40,
