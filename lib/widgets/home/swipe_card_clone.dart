@@ -3,22 +3,22 @@ import 'package:swiper_demo/common/colors.dart';
 import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 
-// class SwipeCard extends StatefulWidget {
-//   final Person person;
+class SwipeCardClone extends StatefulWidget {
+  final Person person;
+  final int currentIndex;
 
-//   SwipeCard({this.person, this.currentIndex});
+  SwipeCardClone({this.person, this.currentIndex});
 
-//   @override
-//   _SwipeCardState createState() {
-//     return _SwipeCardState(this.person, this.currentIndex);
-//   }
-// }
+  @override
+  SwipeCardCloneState createState() {
+    return SwipeCardCloneState(this.person, this.currentIndex);
+  }
+}
 
-class SwipeCard extends StatelessWidget {
+class SwipeCardCloneState extends State<SwipeCardClone> {
   final person;
   final currentIndex;
-  final loading;
-  SwipeCard({this.person, this.currentIndex, this.loading});
+  SwipeCardCloneState(this.person, this.currentIndex);
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +58,11 @@ class SwipeCard extends StatelessWidget {
                                 height: 2,
                                 fontSize: 18,
                                 color: CommonColors.GREY)),
-                        this.loading
-                            ? SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: CircularProgressIndicator(),
-                              )
-                            : Text(
-                                '${person.firstName} ${person.lastName}', // '${person.firstName} ${person.lastName}'
-                                style: TextStyle(
-                                    fontSize: 24,
-                                    color: CommonColors.ALMOST_BLACK)),
+                        Text(
+                            '${person.firstName} ${person.lastName}', // '${person.firstName} ${person.lastName}'
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: CommonColors.ALMOST_BLACK)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[

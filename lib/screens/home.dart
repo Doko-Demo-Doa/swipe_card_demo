@@ -13,6 +13,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Person> people = [];
+  bool loading = false;
 
   @override
   void initState() {
@@ -24,25 +25,34 @@ class _HomeState extends State<Home> {
     var person1 = ApiPerson.getPerson();
     var person2 = ApiPerson.getPerson();
     var person3 = ApiPerson.getPerson();
+    this.setState(() {
+      loading = true;
+    });
     var fetchedPeople =
         await Future.wait([person1, person2, person3], eagerError: true);
     List<Person> newPeople = [];
     newPeople.addAll(fetchedPeople);
     this.setState(() {
       people.addAll(newPeople);
+      loading = false;
     });
   }
 
   onSwipe(bool isRight) async {
     List<Person> newPeople = people;
-    newPeople.removeAt(0);
-    var person = await ApiPerson.getPerson();
-    // print(person.firstName);
-    newPeople.add(person);
-    // people.add(person);
     this.setState(() {
-      
+      loading = true;
     });
+    var person = await ApiPerson.getPerson();
+    this.setState(() {
+      loading = false;
+    });
+    newPeople.add(person);
+    newPeople.removeAt(0);
+    this.setState(() {
+      people = newPeople;
+    });
+    print(people.map((e) => e.firstName));
   }
 
   @override
@@ -57,18 +67,22 @@ class _HomeState extends State<Home> {
               child: new TinderSwapCard(
                 orientation: AmassOrientation.TOP,
                 stackNum: 3,
+                swipeEdge: 4.0,
                 maxWidth: MediaQuery.of(context).size.width * 0.9,
                 maxHeight: MediaQuery.of(context).size.width * 0.9,
                 minWidth: MediaQuery.of(context).size.width * 0.8,
                 minHeight: MediaQuery.of(context).size.width * 0.8,
                 cardBuilder: (BuildContext context, int index) {
-                  var item = people.last;
-                  return SwipeCard(person: item);
+                  return SwipeCard(
+                      person: people.first,
+                      currentIndex: index,
+                      loading: this.loading);
                 },
-                totalNum: 3000,
+                totalNum: 2000,
                 swipeCompleteCallback:
                     (CardSwipeOrientation orientation, int index) {
-                  // this.onSwipe(orientation == CardSwipeOrientation.RIGHT);
+                  if (orientation == CardSwipeOrientation.RECOVER) return
+                  this.onSwipe(orientation == CardSwipeOrientation.RIGHT);
                 },
               ),
             )
