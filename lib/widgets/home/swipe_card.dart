@@ -5,29 +5,37 @@ import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
 
 class SwipeCard extends StatefulWidget {
+  final Person person;
+
+  SwipeCard({this.person});
+
   @override
   _SwipeCardState createState() {
-    return _SwipeCardState();
+    return _SwipeCardState(this.person);
   }
 }
 
 class _SwipeCardState extends State<SwipeCard> {
+  final Person person;
+
+  _SwipeCardState(this.person); 
+
   int activeIndex = 0;
   String name = '';
+  Person p;
 
   @override
   void initState() {
     super.initState();
-    this.getData();
+    // this.getData();
   }
 
   getData() async {
-    Person p = await ApiPerson.getPerson();
-    print(p.address);
+    p = await ApiPerson.getPerson();
 
-    setState(() {
-      name = '${p.firstName} ${p.lastName}';
-    });
+    // setState(() {
+      
+    // });
   }
 
   @override
@@ -68,7 +76,7 @@ class _SwipeCardState extends State<SwipeCard> {
                                 height: 2,
                                 fontSize: 18,
                                 color: CommonColors.GREY)),
-                        Text(name,
+                        Text('${person.firstName} ${person.lastName}', // '${person.firstName} ${person.lastName}'
                             style: TextStyle(
                                 fontSize: 24,
                                 color: CommonColors.ALMOST_BLACK)),
@@ -95,7 +103,7 @@ class _SwipeCardState extends State<SwipeCard> {
                         Border.all(width: 2, color: CommonColors.LIGHT_GREY)),
                 child: ClipOval(
                   child: Image.network(
-                    'http://api.randomuser.me/portraits/women/28.jpg',
+                    p != null ? p.avatar : 'http://api.randomuser.me/portraits/men/19.jpg',
                     width: imageSize,
                     height: imageSize,
                     fit: BoxFit.cover,
