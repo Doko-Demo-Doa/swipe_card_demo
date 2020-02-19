@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swiper_demo/api/api_person.dart';
 import 'package:swiper_demo/common/colors.dart';
 import 'package:swiper_demo/models/person.dart';
 import 'package:swiper_demo/widgets/home/indicator_icon.dart';
@@ -11,14 +12,26 @@ class SwipeCardClone extends StatefulWidget {
 
   @override
   SwipeCardCloneState createState() {
-    return SwipeCardCloneState(this.person, this.currentIndex);
+    return SwipeCardCloneState();
   }
 }
 
 class SwipeCardCloneState extends State<SwipeCardClone> {
-  final person;
-  final currentIndex;
-  SwipeCardCloneState(this.person, this.currentIndex);
+  String name = '';
+
+  @override
+  void initState() {
+    super.initState();
+    this.getData();
+  }
+
+  getData() async {
+    Person p = await ApiPerson.getPerson();
+
+    setState(() {
+      name = '${p.firstName} ${p.lastName}';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +72,7 @@ class SwipeCardCloneState extends State<SwipeCardClone> {
                                 fontSize: 18,
                                 color: CommonColors.GREY)),
                         Text(
-                            '${person.firstName} ${person.lastName}', // '${person.firstName} ${person.lastName}'
+                            name, // '${person.firstName} ${person.lastName}'
                             style: TextStyle(
                                 fontSize: 24,
                                 color: CommonColors.ALMOST_BLACK)),
@@ -86,7 +99,7 @@ class SwipeCardCloneState extends State<SwipeCardClone> {
                         Border.all(width: 2, color: CommonColors.LIGHT_GREY)),
                 child: ClipOval(
                   child: Image.network(
-                    person.avatar,
+                    'http://api.randomuser.me/portraits/men/19.jpg',
                     width: imageSize,
                     height: imageSize,
                     fit: BoxFit.cover,

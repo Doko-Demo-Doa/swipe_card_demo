@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tindercard/flutter_tindercard.dart';
-import 'package:swiper_demo/api/api_person.dart';
-import 'package:swiper_demo/models/person.dart';
-import 'package:swiper_demo/widgets/home/swipe_card.dart';
+import 'package:swiper_demo/widgets/home/swipe_card_clone.dart';
 
 class HomeClone extends StatelessWidget {
   onSwipe(bool isRight) async {
@@ -26,7 +24,7 @@ class HomeClone extends StatelessWidget {
           minWidth: MediaQuery.of(context).size.width * 0.8,
           minHeight: MediaQuery.of(context).size.width * 0.8,
           cardBuilder: (BuildContext context, int index) {
-            return SwipeCard();
+            return SwipeCardClone();
           },
           totalNum: 2000,
           swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
